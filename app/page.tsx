@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { PROTECTED_ACCESS_KEY } from './access';
 
 const FRASE_ORIGINAL = "CADA DESAFIO OFRECE INFORMACION FUNDAMENTAL PARA REALIZAR GRANDES ESTUDIOS Y CREAR INNOVACION CON ESTRUCTURA Y METODOS";
 const PALABRAS_SECRETAS = FRASE_ORIGINAL.split(' ');
@@ -10,14 +11,14 @@ const FRASE_CIFRADA = "PRaHOvYHP1iEQJMOSPYSQCeIPRpdt5CQQCSVRhaGt5CSRvYJÑSKHO1GI
 
 export default function Home() {
   const [inputs, setInputs] = useState<string[]>(Array(PALABRAS_SECRETAS.length).fill(''));
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleInputChange = (index: number, value: string) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
-    setError(false);
+    setError('');
   };
 
   const handleValidation = (e: React.FormEvent) => {
@@ -29,9 +30,15 @@ export default function Home() {
     });
 
     if (esCorrecto) {
-      router.push('/protegido');
+      try {
+        sessionStorage.setItem(PROTECTED_ACCESS_KEY, 'granted');
+        window.dispatchEvent(new Event('protected-access-change'));
+        router.push('/protegido');
+      } catch {
+        setError('No se pudo guardar la autorización en esta pestaña. Revisa la configuración del navegador e inténtalo nuevamente.');
+      }
     } else {
-      setError(true);
+      setError('🚨 ERROR DE PARADOJA TEMPORAL: Una o más palabras son incorrectas. ¡Revisa tu código!');
     }
   };
 
@@ -104,7 +111,7 @@ export default function Home() {
           {/* Cartel de error estilo alerta neón */}
           {error && (
             <div className="p-4 bg-red-950/40 border border-red-500/50 rounded-xl text-red-400 text-sm font-mono text-center shadow-[0_0_20px_rgba(239,68,68,0.3)] animate-pulse">
-              🚨 ERROR DE PARADOJA TEMPORAL: Una o más palabras son incorrectas. ¡Revisa tu código!
+              {error}
             </div>
           )}
 

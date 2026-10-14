@@ -1,6 +1,61 @@
 'use client';
 
+import Link from 'next/link';
+import { useEffect, useSyncExternalStore } from 'react';
+import { useRouter } from 'next/navigation';
+import { PROTECTED_ACCESS_KEY } from '../access';
+
+type EstadoAcceso = 'checking' | 'granted' | 'denied' | 'unavailable';
+
+function suscribirseACambios(callback: () => void) {
+  window.addEventListener('storage', callback);
+  window.addEventListener('protected-access-change', callback);
+
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener('protected-access-change', callback);
+  };
+}
+
+function obtenerEstadoAcceso(): EstadoAcceso {
+  try {
+    return sessionStorage.getItem(PROTECTED_ACCESS_KEY) === 'granted' ? 'granted' : 'denied';
+  } catch {
+    return 'unavailable';
+  }
+}
+
 export default function PaginaProtegida() {
+  const estadoAcceso = useSyncExternalStore(
+    suscribirseACambios,
+    obtenerEstadoAcceso,
+    () => 'checking',
+  );
+  const router = useRouter();
+
+  useEffect(() => {
+    if (estadoAcceso === 'denied') {
+      router.replace('/');
+    }
+  }, [estadoAcceso, router]);
+
+  if (estadoAcceso === 'unavailable') {
+    return (
+      <main className="min-h-screen bg-[#0b0c16] text-slate-100 flex flex-col items-center justify-center gap-4 p-6 font-mono text-center">
+        <p className="text-red-400">No se pudo verificar el acceso en esta pestaña.</p>
+        <Link className="text-cyan-400 underline" href="/">Volver al inicio</Link>
+      </main>
+    );
+  }
+
+  if (estadoAcceso !== 'granted') {
+    return (
+      <main className="min-h-screen bg-[#0b0c16] text-slate-100 flex items-center justify-center p-6 font-mono text-center">
+        <p className="text-slate-400">Verificando acceso...</p>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-[#0b0c16] text-slate-100 flex flex-col justify-between p-6 md:p-12 relative overflow-hidden font-sans">
       

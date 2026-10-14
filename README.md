@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a static [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
@@ -15,6 +15,10 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Run `npm run build` to generate the static site in `out/`. Deploy the contents of that directory to any static hosting provider. The `/protegido` page uses a browser-side session check to prevent normal direct navigation without first entering the correct words.
+
+This check is only a front-end gate, not security: static HTML and JavaScript can be inspected, and `public/palabras.csv` remains publicly accessible at `/palabras.csv`. Protecting the content itself requires server-side access control.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
