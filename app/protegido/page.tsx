@@ -65,7 +65,7 @@ export default function PaginaProtegida() {
       {/* CABECERA */}
       <header className="w-full text-center py-4">
         <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full text-emerald-400 text-xs font-mono tracking-widest uppercase shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-          ⚡ ACCESO AUTORIZADO • PARADOJA RESUELTA ⚡
+          ⚡ ACCESO CONCEDIDO • PARADOJA RESUELTA ⚡
         </div>
       </header>
 
@@ -83,20 +83,20 @@ export default function PaginaProtegida() {
             ¡1.21 GIGAWATTS ALCANZADOS!
           </h1>
           <p className="text-emerald-400 font-mono text-base md:text-lg uppercase tracking-widest">
-            Circuito de tiempo sincronizado a 88 MPH
+            VELOCIDAD DE 88 MPH LOGRADA
           </p>
         </div>
 
         {/* Descripción */}
         <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto font-sans leading-relaxed">
-          Has completado la secuencia de descifrado correctamente. El dataset del tiempo está listo para ser descargado.
+          Has completado la secuencia de descifrado correctamente. El dataset del tiempo viaje en el tiempo está listo para ser descargado.
         </p>
 
         {/* Barra de Estado Creada en Línea */}
         <div className="inline-flex flex-wrap items-center justify-center gap-6 bg-[#121424]/80 border border-emerald-500/30 px-8 py-3 rounded-2xl font-mono text-xs md:text-sm text-slate-400 shadow-xl backdrop-blur">
           <div className="flex items-center gap-2">
             <span className="text-slate-500">PAYLOAD STATUS:</span>
-            <span className="text-emerald-400 font-bold">READY_FOR_DOWNLOAD</span>
+            <span className="text-emerald-400 font-bold">LISTO PARA DESCARGAR</span>
           </div>
           <span className="text-slate-700 hidden sm:inline">|</span>
           <div className="flex items-center gap-2">
@@ -112,7 +112,7 @@ export default function PaginaProtegida() {
             download="palabras.csv"
             className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black font-mono tracking-wider py-5 px-12 rounded-2xl transition-all shadow-[0_0_35px_rgba(16,185,129,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.6)] active:scale-[0.98] uppercase text-xl cursor-pointer"
           >
-            📥 DESCARGAR DATASET CSV
+            📥 DESCARGAR
           </a>
         </div>
 
@@ -120,7 +120,7 @@ export default function PaginaProtegida() {
 
       {/* FOOTER */}
       <footer className="w-full text-center py-4 text-xs font-mono text-slate-600 border-t border-slate-800/50">
-        DESTINATION DATE: OCT 21 2026 • HILL VALLEY HACKATHON
+        DESTINATION DATE: OCT 21 2026 • HACKATHON LBZ
       </footer>
     </main>
   );
